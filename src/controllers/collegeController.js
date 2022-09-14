@@ -1,4 +1,5 @@
 const collegeModel = require("../models/collegeModel")
+const internModel = require("../models/internModel")
 
 
 const createCollege = async function(req, res) {
@@ -23,31 +24,30 @@ const createCollege = async function(req, res) {
 }
 
 
-const getCollegeDetails = async function (req, res){
+
+const getCollegeDetails = async function(req, res){
     try {
         let data = req.query
-        const collegeName = data
 
-        if (collegeName) {
-            let verifyCollegeName = await collegeModel.find({ collegeName: collegeName })
-            if (!verifyCollegeName) {
-                res.status(404).send({ status: false, msg: "no such collegeName exist" })
-            }
-        }
-
-        
+    
+            let verifyCollegeName = await collegeModel.findOne({ name: data.name })
+            let findId = verifyCollegeName._id
+            console.log(findId)
+            //    console.log(verifyCollegeName)
 
         if (Object.keys(data).length == 0) {
-            res.status(400).send({ status: false, msg: "bhai query me kuch to dalo re" })
+            res.status(400).send({ status: false, msg: "please enter collegeName" })
         }
 
-        let specificData = await collegeModel.find(data).populate("collegename")
-        if (specificData == 0) {
+        let specificData = await collegeModel.find({collegeId: verifyCollegeName._id}).select({name:1 })
+        let specificData2 = await internModel.find({collegeId: verifyCollegeName._id}).select({name: 1, email: 1, mobile: 1, collegeId: 1})
+        console.log(specificData)
+        if (specificData.length == 0) {
             res.status(404).send({ status: false, msg: "no such data found in the db with the given condition in the query" })
 
         }
         else {
-            res.status(200).send({ status: true, msg: specificData })
+            res.status(200).send({ status: true, msg: specificData , intern: specificData2})
         }
     }
 
