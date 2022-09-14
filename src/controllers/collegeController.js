@@ -1,7 +1,5 @@
 const collegeModel = require("../models/collegeModel")
 
-
-
 const createcollege = async function (req, res) {
     let college = req.body
     let name = req.body.name
@@ -22,3 +20,4 @@ const createcollege = async function (req, res) {
     res.status(201).send({ status: true, data: savecollege })
 
 }
+module.exports.createcollege=createcollege;
