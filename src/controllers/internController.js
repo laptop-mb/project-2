@@ -2,11 +2,12 @@ const internModel=require('../models/internModel')
 
 
 const createIntern = async function(req, res) {
-    let intern = req.body
+    try {
+        let intern = req.body
     let name = req.body.name
     let mobile = req.body.mobile
     let email = req.body.email
-    let collegeName = req.body.collegeName
+    let collegeId = req.body.collegeId
 
 
     if (!name) {
@@ -18,11 +19,16 @@ const createIntern = async function(req, res) {
     if (!email) {
         return res.status(400).send({ status: false, msg: "please provide valid email" })
     }
-    if (!collegeName) {
-        return res.status(400).send({ status: false, msg: "please provide valid collegeName" })
+    if (!collegeId) {
+        return res.status(400).send({ status: false, msg: "please provide valid collegeId" })
     }
     let savecollege = await internModel.create(intern)
     res.status(201).send({ status: true, data: savecollege })
+        
+    } catch (error) {
+        res.send(error.message)
+        
+    }
 
 }
 

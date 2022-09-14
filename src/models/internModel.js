@@ -22,14 +22,14 @@ const internSchema = new mongoose.Schema({
          }
         },
     mobile:{
-        tyep:String,
-         required: true,
+        type:Number,
+         required: "mobile no mandatory",
           uniuqe: true, 
-          validate : {
-            validator : function (mobile){
-                return ("(0|91)?[6-9][0-9]{9}").test(mobile)
-            }, message : 'please enter a valid mobile number'
-          }
+        //   validate : {
+        //     validator : function (mobile){
+        //         return ("(0|91)?[6-9][0-9]{9}").match(mobile)
+        //     }, message : 'please enter a valid mobile number'
+        //   }
         },
     collegeId: {
         type: ObjectId, 
