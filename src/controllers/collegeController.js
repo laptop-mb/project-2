@@ -38,14 +38,15 @@ const getCollegeDetails = async function(req, res){
             res.status(400).send({ status: false, msg: "please enter collegeName" })
         }
 
-        let specificData = await internModel.find({collegeId: verifyCollegeName._id})
+        let specificData = await collegeModel.find({collegeId: verifyCollegeName._id}).select({name:1 })
+        let specificData2 = await internModel.find({collegeId: verifyCollegeName._id}).select({name: 1, email: 1, mobile: 1, collegeId: 1})
         console.log(specificData)
         if (specificData.length == 0) {
             res.status(404).send({ status: false, msg: "no such data found in the db with the given condition in the query" })
 
         }
         else {
-            res.status(200).send({ status: true, msg: specificData })
+            res.status(200).send({ status: true, msg: specificData , intern: specificData2})
         }
 
 
