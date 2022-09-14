@@ -1,5 +1,6 @@
 const internModel=require('../models/internModel')
 
+
 const createIntern = async function(req, res) {
     let intern = req.body
     let name = req.body.name
