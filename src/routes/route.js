@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const collegeModel = require("..models/collegeModel")
+const collegeController = require("../controllers/collegeController.js")
 
 
 // 1 create college 
-router.post("//functionup/colleges", collegeModel.createcollege)
+router.post("/functionup/colleges",collegeController.createCollege)
+
+
+module.exports = router
