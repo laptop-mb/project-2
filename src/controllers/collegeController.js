@@ -21,4 +21,4 @@ const createCollege = async function(req, res) {
 
 }
 
-module.exports.createCollege = createCollege;
+module.exports.createCollege = createCollege
