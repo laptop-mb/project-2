@@ -1,5 +1,5 @@
 const internModel=require('../models/internModel')
-
+const validate = require('validator')
 
 const createIntern = async function(req, res) {
     try {
@@ -47,6 +47,11 @@ const createIntern = async function(req, res) {
     // if(name.trim()){
     //    return res.send("before after name space not allowed")
     // }
+
+    if (!validate.isEmail(email)){
+        return  res.status(400).send({ status: false, msg: "email is not valid " })
+      }
+
 
     //let savecollege = await internModel.create(intern)
     res.status(201).send({ status: true, data: "savecollege" })
