@@ -39,7 +39,7 @@ const getCollegeDetails = async function(req, res){
             res.status(400).send({ status: false, msg: "please enter collegeName" })
         }
 
-        let specificData = await collegeModel.find({collegeId: verifyCollegeName._id}).select({name:1 })
+        let specificData = await collegeModel.findOne({collegeId: verifyCollegeName._id}).select({name:1 ,fullName:1,logoLink:1})
         let specificData2 = await internModel.find({collegeId: verifyCollegeName._id}).select({name: 1, email: 1, mobile: 1, collegeId: 1})
         console.log(specificData)
         if (specificData.length == 0) {

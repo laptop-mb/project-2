@@ -3,7 +3,7 @@ const internModel=require('../models/internModel')
 
 const createIntern = async function(req, res) {
     try {
-        let intern = req.body
+     let intern = req.body
     let name = req.body.name
     let mobile = req.body.mobile
     let email = req.body.email
