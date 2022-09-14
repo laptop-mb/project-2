@@ -26,7 +26,7 @@ const createIntern = async function(req, res) {
     res.status(201).send({ status: true, data: savecollege })
         
     } catch (error) {
-        res.send(error.message)
+        res.status(500).send(error.message)
         
     }
 
