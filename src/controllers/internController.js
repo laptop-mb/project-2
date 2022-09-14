@@ -27,9 +27,8 @@ const createIntern = async function(req, res) {
         
     } catch (error) {
         res.send(error.message)
-        
     }
-
 }
+
 
 module.exports.createIntern = createIntern;

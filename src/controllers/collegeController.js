@@ -23,7 +23,7 @@ const createCollege = async function(req, res) {
 }
 
 
-const getCollegeDetails = async (req, res){
+const getCollegeDetails = async function (req, res){
     try {
         let data = req.query
         const collegeName = data
@@ -49,8 +49,6 @@ const getCollegeDetails = async (req, res){
         else {
             res.status(200).send({ status: true, msg: specificData })
         }
-
-
     }
 
 
