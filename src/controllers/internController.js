@@ -1,7 +1,5 @@
 const internModel=require('../models/internModel')
 
-const collegeModel = require("../models/collegeModel.js")
-
 const createIntern = async function(req, res) {
     let intern = req.body
     let name = req.body.name
