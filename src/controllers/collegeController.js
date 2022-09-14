@@ -1,10 +1,10 @@
-const collegeModel = require("../models/collegeModel")
+const collegeModel = require("../models/collegeModel.js")
 
-const createcollege = async function (req, res) {
+const createCollege = async function(req, res) {
     let college = req.body
     let name = req.body.name
     let fullName = req.body.fullName
-    let logolink = req.body.logolink
+    let logoLink = req.body.logoLink
 
 
     if (!name) {
@@ -13,11 +13,12 @@ const createcollege = async function (req, res) {
     if (!fullName) {
         return res.status(400).send({ status: false, msg: "please provide valid fullname" })
     }
-    if (!logolink) {
+    if (!logoLink) {
         return res.status(400).send({ status: false, msg: "please provide valid logolink" })
     }
     let savecollege = await collegeModel.create(college)
     res.status(201).send({ status: true, data: savecollege })
 
 }
-module.exports.createcollege=createcollege;
+
+module.exports.createCollege = createCollege;
