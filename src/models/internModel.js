@@ -20,11 +20,7 @@ const internSchema = new mongoose.Schema({
         type:Number,
          required: "mobile no mandatory",
           uniuqe: true, 
-        //   validate : {
-        //     validator : function (mobile){
-        //         return ("(0|91)?[6-9][0-9]{9}").match(mobile)
-        //     }, message : 'please enter a valid mobile number'
-        //   }
+      
         },
     collegeId: {
         type: ObjectId, 
