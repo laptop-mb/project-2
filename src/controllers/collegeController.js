@@ -4,6 +4,7 @@ const validate = require('validator')
 const { populate } = require("../models/collegeModel")
 
 const createCollege = async function (req, res) {
+    try {
     let college = {}
     college = req.body
     let { name, fullName, logoLink , isDeleted } = req.body
@@ -78,10 +79,14 @@ const createCollege = async function (req, res) {
      let savecollege = await collegeModel.create(college)
     res.status(201).send({ status: true, data: savecollege })
 
+    }catch(error){
+        res.status(500).send({status : false , msg : error.message})
+    }
 }
 
 
 
+//get api ************************************************************************************************************
 const getCollegeDetails = async function (req, res) {
      try {
     let data = req.query
