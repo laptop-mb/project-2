@@ -97,19 +97,22 @@ const getCollegeDetails = async function (req, res) {
     }
         
   
-    //let specificData = await internModel.find().populate('collegeId').select({name :1})
-     let specificData = await collegeModel.findOne({ _id: verifyCollegeName._id }).select({ name: 1, fullName: 1, logoLink: 1, _id: 0 })
-     let specificData2 = await internModel.find({ collegeId: verifyCollegeName._id }).select({ name: 1, email: 1, mobile: 1 })
+      let specificData = await collegeModel.findOne({ _id: verifyCollegeName._id , isDeleted : false}).select({ name: 1, fullName: 1, logoLink: 1, _id: 0 })
+      let specificData2 = await internModel.find({ collegeId: verifyCollegeName._id , isDeleted : false}).select({ name: 1, email: 1, mobile: 1 })
 
-      let  obj = {}
-       obj.college = specificData
-       obj.inter = specificData2
+      let  Data = {
+        name : specificData.name,
+        fullName : specificData.fullName,
+        logoLink : specificData.logoLink,
+        interns  : specificData2
+      }
+       
     if (specificData.length == 0) {
         res.status(404).send({ status: false, msg: "no such data found in the db with the given condition in the query" })
    
     }
     else {
-        res.status(200).send({ status: true, msg: obj })
+        res.status(200).send({ status: true, data: Data})
     }
 
 
