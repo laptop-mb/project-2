@@ -1,11 +1,12 @@
 const collegeModel = require("../models/collegeModel")
 const internModel = require("../models/internModel")
 const validate = require('validator')
+const { populate } = require("../models/collegeModel")
 
 const createCollege = async function (req, res) {
     let college = {}
     college = req.body
-    let { name, fullName, logoLink , isDeleted} = req.body
+    let { name, fullName, logoLink , isDeleted } = req.body
     let arr = Object.keys(req.body)
 
 
@@ -59,6 +60,9 @@ const createCollege = async function (req, res) {
         }
     }
 
+
+
+
     let checkname = await collegeModel.findOne({ name })
     if (checkname) {
         return res.status(200).send({ status: false, msg: "this name is already present in database" })
@@ -83,7 +87,7 @@ const getCollegeDetails = async function (req, res) {
     let data = req.query
 
 
-    let verifyCollegeName = await collegeModel.findOne({ name: data.name })
+    let verifyCollegeName = await collegeModel.findOne({ name: data.CollegeName })
     if (verifyCollegeName == null) {
         return res.status(404).send({ status: false, msg: "this college name is not found " })
     }
@@ -91,16 +95,21 @@ const getCollegeDetails = async function (req, res) {
     if (Object.keys(data).length == 0) {
         res.status(400).send({ status: false, msg: "please enter collegeName" })
     }
+        
+  
+    //let specificData = await internModel.find().populate('collegeId').select({name :1})
+     let specificData = await collegeModel.findOne({ _id: verifyCollegeName._id }).select({ name: 1, fullName: 1, logoLink: 1, _id: 0 })
+     let specificData2 = await internModel.find({ collegeId: verifyCollegeName._id }).select({ name: 1, email: 1, mobile: 1 })
 
-    let specificData = await collegeModel.findOne({ _id: verifyCollegeName._id }).select({ name: 1, fullName: 1, logoLink: 1, _id: 0 })
-    let specificData2 = await internModel.find({ collegeId: verifyCollegeName._id }).select({ name: 1, email: 1, mobile: 1 })
-    console.log(specificData)
+      let  obj = {}
+       obj.college = specificData
+       obj.inter = specificData2
     if (specificData.length == 0) {
         res.status(404).send({ status: false, msg: "no such data found in the db with the given condition in the query" })
-
+   
     }
     else {
-        res.status(200).send({ status: true, msg: specificData, intern: specificData2 })
+        res.status(200).send({ status: true, msg: obj })
     }
 
 
