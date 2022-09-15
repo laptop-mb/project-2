@@ -87,7 +87,7 @@ const getCollegeDetails = async function (req, res) {
     let data = req.query
 
 
-    let verifyCollegeName = await collegeModel.findOne({ name: data.CollegeName })
+    let verifyCollegeName = await collegeModel.findOne({ name: data.collegeName })
     if (verifyCollegeName == null) {
         return res.status(404).send({ status: false, msg: "this college name is not found " })
     }
