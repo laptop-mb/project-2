@@ -79,7 +79,7 @@ const createCollege = async function (req, res) {
      let savecollege = await collegeModel.create(college)
 
 
-      let saveResponse = await collegeModel.find({_id : savecollege._id}).select({name : 1 , fullName : 1 , logoLink , isDeleted : 1, _id : 0} )
+      let saveResponse = await collegeModel.findOne({_id : savecollege._id}).select({name : 1 , fullName : 1 , logoLink , isDeleted : 1, _id : 0} )
     res.status(201).send({ status: true, data: saveResponse })
 
     }catch(error){
