@@ -73,11 +73,14 @@ const createCollege = async function (req, res) {
     if (!validate.isURL(logoLink)) {
         return res.status(400).send({ status: false, msg: "URL is not valid " })
     }
-     
+       
 
 
      let savecollege = await collegeModel.create(college)
-    res.status(201).send({ status: true, data: savecollege })
+
+
+      let saveResponse = await collegeModel.find({_id : savecollege._id}).select({name : 1 , fullName : 1 , logoLink , isDeleted : 1, _id : 0} )
+    res.status(201).send({ status: true, data: saveResponse })
 
     }catch(error){
         res.status(500).send({status : false , msg : error.message})
