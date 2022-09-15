@@ -1,13 +1,23 @@
 const internModel=require('../models/internModel')
-
+const validate = require('validator')
 
 const createIntern = async function(req, res) {
     try {
-        let intern = req.body
-    let name = req.body.name
-    let mobile = req.body.mobile
-    let email = req.body.email
-    let collegeId = req.body.collegeId
+     let intern = req.body
+     let {name, mobile, email, collegeId} = req.body
+     let arr = Object.keys(req.body)
+         if (typeof (name) != "string"){
+        return res.status(400).send({ status: false, message: "Give name only in a String." })
+   }
+
+
+
+   if (arr.length > 5) {
+    return res.status(400).send({
+         status: false,
+         message: "use only name, mobile, email, collegeId,isDeleted,only"
+    })
+}
 
 
     if (!name) {
@@ -22,14 +32,38 @@ const createIntern = async function(req, res) {
     if (!collegeId) {
         return res.status(400).send({ status: false, msg: "please provide valid collegeId" })
     }
-    let savecollege = await internModel.create(intern)
-    res.status(201).send({ status: true, data: savecollege })
+
+
+    let Name = /^[a-zA-Z ]+$/.test(name)
+    if (Name == false ) {
+        return res.status(400).send({
+         status: false,
+         message: "Please enter letters only in name , don't enter special characters or digits"
+    })
+}
+    let trimmer = name.trim()
+    intern.name = trimmer
+    console.log(intern)
+    // if(name.trim()){
+    //    return res.send("before after name space not allowed")
+    // }
+
+    if (!validate.isEmail(email)){
+        return  res.status(400).send({ status: false, msg: "email is not valid " })
+      }
+
+
+    //let savecollege = await internModel.create(intern)
+    res.status(201).send({ status: true, data: "savecollege" })
         
     } catch (error) {
+
         res.status(500).send(error.message)
         
-    }
 
+        res.send(error.message)
+    }
 }
+
 
 module.exports.createIntern = createIntern;
