@@ -1,7 +1,6 @@
 const collegeModel = require("../models/collegeModel")
 const internModel = require("../models/internModel")
 const validate = require('validator')
-const { populate } = require("../models/collegeModel")
 
 const createCollege = async function (req, res) {
     let college = {}
@@ -42,7 +41,7 @@ const createCollege = async function (req, res) {
         return res.status(400).send({ status: false, msg: "name is only allowed in lowercase don't use special character or number" })
     }
 
-    let fullname = /^[a-zA-Z ]+$/.test(fullName)
+    let fullname = /^[a-zA-Z ,]+$/.test(fullName)
     if (fullname == false) {
         return res.status(400).send({
             status: false,

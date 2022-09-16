@@ -98,8 +98,6 @@ const createIntern = async function (req, res) {
 
         res.status(500).send(error.message)
         
-
-        res.send(error.message)
     }
 }
 module.exports.createIntern = createIntern;
