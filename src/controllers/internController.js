@@ -5,6 +5,7 @@ const collegeModel = require('../models/collegeModel')
 const createIntern = async function (req, res) {
     try {
         let intern = req.body
+        
         let { name, mobile, email, isDeleted ,CollegeName } = req.body
         let arr = Object.keys(req.body)
 

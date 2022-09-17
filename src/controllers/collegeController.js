@@ -7,6 +7,7 @@ const createCollege = async function (req, res) {
     college = req.body
     let { name, fullName, logoLink , isDeleted } = req.body
     let arr = Object.keys(req.body)
+    // console.log(arr)
 
 
 
@@ -101,6 +102,9 @@ const getCollegeDetails = async function (req, res) {
   
       let specificData = await collegeModel.findOne({ _id: verifyCollegeName._id , isDeleted : false}).select({ name: 1, fullName: 1, logoLink: 1, _id: 0 })
       let specificData2 = await internModel.find({ collegeId: verifyCollegeName._id , isDeleted : false}).select({ name: 1, email: 1, mobile: 1 })
+
+     
+ 
 
       let  Data = {
         name : specificData.name,
